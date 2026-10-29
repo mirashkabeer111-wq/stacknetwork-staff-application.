@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StackNetwork | Staff Applications</title>
+<style>
+:root {
+  --bg:#07101b;
+  --panel:#102338;
+  --green:#39e6b2;
+  --blue:#51b8ff;
+  --text:#f2f7ff;
+  --muted:#9eb1c7;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:radial-gradient(ellipse at top,#173c50,transparent 55%),var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+.wrap { width:min(850px,92%); margin:auto; }
+header {
+  display:flex; justify-content:space-between;
+  align-items:center; padding:24px 0;
+}
+.brand { color:white; font-weight:900; font-size:22px; }
+.brand span { color:var(--green); }
+a { color:var(--green); text-decoration:none; }
+.hero { text-align:center; padding:40px 0 25px; }
+.tag {
+  display:inline-block; border:1px solid #39e6b255;
+  color:var(--green); border-radius:50px;
+  padding:8px 14px; font-size:12px;
+}
+h1 { font-size:clamp(35px,7vw,60px); margin:20px 0; }
+.grad {
+  background:linear-gradient(90deg,#fff,var(--green),var(--blue));
+  background-clip:text; color:transparent;
+}
+.lead { color:var(--muted); line-height:1.7; }
+.panel {
+  background:linear-gradient(135deg,#11283a,#0b1928);
+  border:1px solid #ffffff20; border-radius:18px;
+  padding:clamp(18px,4vw,30px); margin:25px 0 40px;
+}
+.hint { color:var(--muted); font-size:13px; line-height:1.7; }
+.ranks {
+  padding:14px; border:1px solid #39e6b255;
+  background:#39e6b20b; border-radius:12px;
+  line-height:1.9; font-size:13px; margin:20px 0;
+}
+.ranks b { color:var(--green); }
+form { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.field { display:flex; flex-direction:column; gap:8px; }
+.full { grid-column:1/-1; }
+label { font-size:13px; font-weight:bold; }
+input,select,textarea {
+  width:100%; padding:13px; border-radius:10px;
+  background:#06111d; color:white;
+  border:1px solid #ffffff25; font:inherit;
+}
+textarea { min-height:110px; resize:vertical; }
+button {
+  padding:15px; width:100%; border:0; border-radius:10px;
+  background:var(--green); color:#06111b;
+  font-weight:900; cursor:pointer;
+}
+footer { color:var(--muted); padding:22px 0; font-size:12px; }
+@media(max-width:600px) {
+  form { grid-template-columns:1fr; }
+  .full { grid-column:auto; }
+}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="brand">STACK<span>NETWORK</span></div>
+  <a href="https://discord.gg/7pnknggESA" target="_blank">Join Discord ↗</a>
+</header>
+
+<main class="wrap">
+<section class="hero">
+  <div class="tag">✦ STAFF RECRUITMENT ✦</div>
+  <h1>STAFF <span class="grad">APPLICATION</span></h1>
+  <p class="lead">
+    Join the StackNetwork team. Answer all questions honestly
+    and show us why you would make a great staff member.
+  </p>
+</section>
+
+<section class="panel">
+  <h2>Apply to StackNetwork</h2>
+  <p class="hint">10 questions are randomly selected for each fresh page load.</p>
+
+  <div class="ranks">
+    <b>Available Positions</b><br>
+    SrAdmin · Admin · Moderator · JrModerator · Helper · JrHelper · YouTuber
+  </div>
+
+  <form id="applicationForm">
+    <div class="field">
+      <label for="name">Original Name *</label>
+      <input id="name" required maxlength="80">
+    </div>
+    <div class="field">
+      <label for="age">Age *</label>
+      <input id="age" type="number" min="10" max="99" required>
+    </div>
+    <div class="field">
+      <label for="minecraft">Minecraft Username *</label>
+      <input id="minecraft" required maxlength="40">
+    </div>
+    <div class="field">
+      <label for="discord">Discord Username *</label>
+      <input id="discord" required maxlength="60">
+    </div>
+    <div class="field">
+      <label for="position">Applying For *</label>
+      <select id="position" required>
+        <option value="">Select a rank</option>
+        <option>SrAdmin</option>
+        <option>Admin</option>
+        <option>Moderator</option>
+        <option>JrModerator</option>
+        <option>Helper</option>
+        <option>JrHelper</option>
+        <option>YouTuber</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="timezone">Country / Timezone</label>
+      <input id="timezone" placeholder="Example: India / IST">
+    </div>
+    <div class="field full">
+      <label for="hours">How many hours can you be active on Minecraft and Discord? *</label>
+      <textarea id="hours" required></textarea>
+    </div>
+
+    <div class="full">
+      <h2>Random Questions</h2>
+      <p class="hint" id="questionInfo"></p>
+    </div>
+    <div id="questions" class="full" style="display:grid;gap:16px"></div>
+
+    <div class="full">
+      <button type="submit">REVIEW APPLICATION ↗</button>
+    </div>
+    <div id="result" class="full hint" aria-live="polite"></div>
+  </form>
+</section>
+</main>
+
+<footer class="wrap">
+  StackNetwork Staff Recruitment ·
+  <a href="https://discord.gg/7pnknggESA">Discord Server</a>
+</footer>
+
+<script>
+const questionPool = [
+"How would you handle a ticket from an angry player?",
+"How would you investigate a player accused of scamming?",
+"If you cannot solve a case, what would you do next?",
+"What would you do if your friend broke a server rule?",
+"How would you respond to a player insulting you?",
+"What evidence should be collected before punishing a player?",
+"What would you do if another staff member abused permissions?",
+"How would you handle a ban appeal with unclear evidence?",
+"What would you do if two players gave conflicting stories?",
+"How would you protect private staff information?",
+"Why do you want to join the StackNetwork staff team?",
+"What skills make you suitable for your chosen rank?",
+"How would you help a new player understand server rules?",
+"How would you handle spam flooding the chat?",
+"What would you do if you punished the wrong player?",
+"How would you balance school and staff duties?",
+"What if a senior staff member asked you to break a rule?",
+"How would you handle a player abusing an exploit?",
+"How would you keep a Discord ticket professional?",
+"What if a player offered you money for special treatment?",
+"How would you decide between a warning, mute, kick, or ban?",
+"How would you calm an argument without taking sides?",
+"What does being fair and unbiased mean to you?",
+"How would you report a serious incident to the team?",
+"What if you needed to be inactive for several days?",
+"How would you handle a report against a popular donor?",
+"How would you explain a punishment to someone who disagrees?",
+"What would you do if a player shared another player's private information?",
+"How would you respond if you saw suspicious activity on the server?",
+"What is one skill you want to improve, and how will you improve it?"
+];
+
+function shuffle(items) {
+  const arr = [...items];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+const questionsEl = document.getElementById("questions");
+const form = document.getElementById("applicationForm");
+const result = document.getElementById("result");
+let selected = [];
+
+function loadQuestions() {
+  selected = shuffle(questionPool).slice(0, 10);
+  questionsEl.replaceChildren();
+
+  selected.forEach((q, i) => {
+    const field = document.createElement("div");
+    field.className = "field";
+
+    const label = document.createElement("label");
+    label.htmlFor = "answer" + i;
+    label.textContent = `${i + 1}. ${q} *`;
+
+    const area = document.createElement("textarea");
+    area.id = "answer" + i;
+    area.required = true;
+    area.minLength = 8;
+    area.maxLength = 1500;
+    area.placeholder = "Write your answer here...";
+
+    field.append(label, area);
+    questionsEl.append(field);
+  });
+
+  document.getElementById("questionInfo").textContent =
+    "10 unique questions randomly selected from 30.";
+}
+
+loadQuestions();
+
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  if (!form.reportValidity()) return;
+
+  const application = {
+    name: document.getElementById("name").value.trim(),
+    age: document.getElementById("age").value,
+    minecraft: document.getElementById("minecraft").value.trim(),
+    discord: document.getElementById("discord").value.trim(),
+    position: document.getElementById("position").value,
+    timezone: document.getElementById("timezone").value.trim(),
+    hours: document.getElementById("hours").value.trim(),
+    answers: selected.map((question, i) => ({
+      question,
+      answer: document.getElementById("answer" + i).value.trim()
+    }))
+  };
+
+  // Website-only preview. This does not send anything to Discord.
+  const preview = JSON.stringify(application, null, 2);
+  const blob = new Blob([preview], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "stacknetwork-application.json";
+  link.click();
+  URL.revokeObjectURL(url);
+
+  result.textContent =
+    "Application review file downloaded. This website-only version does not submit to Discord automatically. Connect a backend to deliver applications to your channel.";
+});
+</script>
+</body>
+</html>
