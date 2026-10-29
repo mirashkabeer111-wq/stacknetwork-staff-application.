@@ -3,269 +3,566 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d18">
 <title>StackNetwork | Staff Applications</title>
 <style>
 :root {
-  --bg:#07101b;
-  --panel:#102338;
-  --green:#39e6b2;
-  --blue:#51b8ff;
-  --text:#f2f7ff;
-  --muted:#9eb1c7;
+  --bg:#080d18;
+  --panel:#101a2b;
+  --panel2:#0c1423;
+  --border:#24334b;
+  --text:#edf4ff;
+  --muted:#91a2bd;
+  --blue:#55a7ff;
+  --cyan:#52ead1;
+  --danger:#ff6b81;
 }
 * { box-sizing:border-box; }
 body {
   margin:0;
-  background:radial-gradient(ellipse at top,#173c50,transparent 55%),var(--bg);
   color:var(--text);
-  font-family:Arial,sans-serif;
+  background:
+    radial-gradient(ellipse at 15% 0%,#102d4c 0%,transparent 40%),
+    radial-gradient(ellipse at 100% 40%,#102c31 0%,transparent 35%),
+    var(--bg);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  min-height:100vh;
 }
-.wrap { width:min(850px,92%); margin:auto; }
-header {
-  display:flex; justify-content:space-between;
-  align-items:center; padding:24px 0;
+button,input,select,textarea { font:inherit; }
+a { color:var(--cyan); }
+.container { width:min(1000px,92%); margin:auto; }
+nav {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px; padding:22px 0; border-bottom:1px solid #ffffff12;
 }
-.brand { color:white; font-weight:900; font-size:22px; }
-.brand span { color:var(--green); }
-a { color:var(--green); text-decoration:none; }
-.hero { text-align:center; padding:40px 0 25px; }
-.tag {
-  display:inline-block; border:1px solid #39e6b255;
-  color:var(--green); border-radius:50px;
-  padding:8px 14px; font-size:12px;
+.brand { font-size:19px; font-weight:900; letter-spacing:1.5px; }
+.brand span { color:var(--cyan); }
+.pill {
+  border:1px solid #52ead155; border-radius:999px;
+  padding:7px 12px; color:var(--cyan); font-size:12px;
 }
-h1 { font-size:clamp(35px,7vw,60px); margin:20px 0; }
-.grad {
-  background:linear-gradient(90deg,#fff,var(--green),var(--blue));
-  background-clip:text; color:transparent;
+.hero { text-align:center; padding:54px 0 32px; }
+.eyebrow {
+  color:var(--cyan); font-size:12px; font-weight:800;
+  letter-spacing:3px; text-transform:uppercase;
 }
-.lead { color:var(--muted); line-height:1.7; }
-.panel {
-  background:linear-gradient(135deg,#11283a,#0b1928);
-  border:1px solid #ffffff20; border-radius:18px;
-  padding:clamp(18px,4vw,30px); margin:25px 0 40px;
+h1 {
+  font-size:clamp(34px,7vw,60px); line-height:1.08;
+  margin:17px 0; letter-spacing:-2px;
 }
-.hint { color:var(--muted); font-size:13px; line-height:1.7; }
-.ranks {
-  padding:14px; border:1px solid #39e6b255;
-  background:#39e6b20b; border-radius:12px;
-  line-height:1.9; font-size:13px; margin:20px 0;
+h1 span {
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent;
 }
-.ranks b { color:var(--green); }
-form { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.field { display:flex; flex-direction:column; gap:8px; }
+.hero p { color:var(--muted); line-height:1.8; max-width:650px; margin:0 auto; }
+.features {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:12px; margin:24px 0;
+}
+.feature {
+  background:#101a2bba; border:1px solid var(--border);
+  border-radius:15px; padding:17px; text-align:center;
+}
+.feature strong { display:block; font-size:22px; color:var(--cyan); }
+.feature small { display:block; color:var(--muted); margin-top:6px; }
+.card {
+  background:linear-gradient(145deg,#101a2bf5,#0b1321f5);
+  border:1px solid var(--border); border-radius:20px;
+  padding:clamp(17px,4vw,32px); margin:20px 0 35px;
+  box-shadow:0 20px 70px #0003;
+}
+.section-title { font-size:21px; margin:0 0 7px; }
+.section-desc { color:var(--muted); font-size:14px; line-height:1.7; margin:0 0 24px; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:17px; }
+.field { display:flex; flex-direction:column; gap:8px; min-width:0; }
 .full { grid-column:1/-1; }
-label { font-size:13px; font-weight:bold; }
+label { font-size:13px; font-weight:700; color:#dce7f7; }
 input,select,textarea {
-  width:100%; padding:13px; border-radius:10px;
-  background:#06111d; color:white;
-  border:1px solid #ffffff25; font:inherit;
+  width:100%; color:var(--text); background:var(--panel2);
+  border:1px solid var(--border); border-radius:11px;
+  padding:13px 14px; outline:none; transition:.2s;
 }
-textarea { min-height:110px; resize:vertical; }
-button {
-  padding:15px; width:100%; border:0; border-radius:10px;
-  background:var(--green); color:#06111b;
-  font-weight:900; cursor:pointer;
+input:focus,select:focus,textarea:focus {
+  border-color:var(--blue); box-shadow:0 0 0 3px #55a7ff16;
 }
-footer { color:var(--muted); padding:22px 0; font-size:12px; }
-@media(max-width:600px) {
-  form { grid-template-columns:1fr; }
+select option { background:var(--panel); }
+textarea { min-height:100px; resize:vertical; line-height:1.6; }
+.hint { font-size:12px; color:var(--muted); line-height:1.6; }
+.divider { height:1px; background:var(--border); margin:27px 0; }
+.rank-info {
+  border:1px solid #55a7ff40; background:#55a7ff0b;
+  border-radius:13px; padding:15px; margin:16px 0 22px;
+}
+.rank-info strong { color:var(--blue); }
+.rank-info p { color:var(--muted); font-size:13px; line-height:1.7; margin:7px 0 0; }
+.question-top {
+  display:flex; justify-content:space-between; align-items:center;
+  gap:12px; margin-bottom:17px;
+}
+.counter { color:var(--cyan); font-size:12px; font-weight:800; white-space:nowrap; }
+.question {
+  border:1px solid var(--border); background:#0b1422;
+  border-radius:13px; padding:16px; margin:12px 0;
+}
+.question label { display:block; font-size:14px; line-height:1.7; margin-bottom:12px; }
+.qnum { color:var(--cyan); font-size:11px; letter-spacing:1px; display:block; margin-bottom:6px; }
+.question textarea { min-height:115px; }
+.actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
+.btn {
+  border:0; border-radius:11px; padding:14px 19px;
+  font-weight:800; cursor:pointer; transition:.2s;
+}
+.btn:hover { transform:translateY(-1px); filter:brightness(1.08); }
+.primary { background:linear-gradient(100deg,var(--blue),var(--cyan)); color:#06111c; flex:1; }
+.secondary { color:var(--text); background:#18243a; border:1px solid var(--border); }
+.notice {
+  display:none; padding:14px; margin-top:17px;
+  border-radius:11px; line-height:1.7; font-size:14px;
+}
+.notice.success { display:block; background:#52ead112; border:1px solid #52ead155; color:var(--cyan); }
+.notice.error { display:block; background:#ff6b8112; border:1px solid #ff6b8155; color:#ff9eac; }
+footer { text-align:center; padding:25px 0 35px; color:var(--muted); font-size:12px; line-height:1.8; }
+.checkrow { display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.7; color:var(--muted); }
+.checkrow input { width:17px; height:17px; margin-top:3px; flex-shrink:0; accent-color:var(--cyan); }
+@media(max-width:650px) {
+  .grid { grid-template-columns:1fr; }
   .full { grid-column:auto; }
+  .features { grid-template-columns:1fr; }
+  .hero { padding-top:38px; }
+  nav { align-items:flex-start; }
 }
 </style>
 </head>
 <body>
-<header class="wrap">
-  <div class="brand">STACK<span>NETWORK</span></div>
-  <a href="https://discord.gg/7pnknggESA" target="_blank">Join Discord ↗</a>
-</header>
+<div class="container">
+  <nav>
+    <div class="brand">STACK<span>NETWORK</span></div>
+    <div class="pill">STAFF RECRUITMENT</div>
+  </nav>
 
-<main class="wrap">
-<section class="hero">
-  <div class="tag">✦ STAFF RECRUITMENT ✦</div>
-  <h1>STAFF <span class="grad">APPLICATION</span></h1>
-  <p class="lead">
-    Join the StackNetwork team. Answer all questions honestly
-    and show us why you would make a great staff member.
-  </p>
-</section>
+  <header class="hero">
+    <div class="eyebrow">Your next chapter starts here</div>
+    <h1>JOIN THE <span>STAFF TEAM</span></h1>
+    <p>
+      Help build a fair, friendly and competitive Minecraft community.
+      Choose your role, answer its questions honestly, and submit your application.
+    </p>
+  </header>
 
-<section class="panel">
-  <h2>Apply to StackNetwork</h2>
-  <p class="hint">10 questions are randomly selected for each fresh page load.</p>
-
-  <div class="ranks">
-    <b>Available Positions</b><br>
-    SrAdmin · Admin · Moderator · JrModerator · Helper · JrHelper · YouTuber
+  <div class="features">
+    <div class="feature"><strong>07</strong><small>Available Positions</small></div>
+    <div class="feature"><strong>10</strong><small>Random Questions</small></div>
+    <div class="feature"><strong>100%</strong><small>Free Application</small></div>
   </div>
 
-  <form id="applicationForm">
-    <div class="field">
-      <label for="name">Original Name *</label>
-      <input id="name" required maxlength="80">
-    </div>
-    <div class="field">
-      <label for="age">Age *</label>
-      <input id="age" type="number" min="10" max="99" required>
-    </div>
-    <div class="field">
-      <label for="minecraft">Minecraft Username *</label>
-      <input id="minecraft" required maxlength="40">
-    </div>
-    <div class="field">
-      <label for="discord">Discord Username *</label>
-      <input id="discord" required maxlength="60">
-    </div>
-    <div class="field">
-      <label for="position">Applying For *</label>
-      <select id="position" required>
-        <option value="">Select a rank</option>
-        <option>SrAdmin</option>
-        <option>Admin</option>
-        <option>Moderator</option>
-        <option>JrModerator</option>
-        <option>Helper</option>
-        <option>JrHelper</option>
-        <option>YouTuber</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="timezone">Country / Timezone</label>
-      <input id="timezone" placeholder="Example: India / IST">
-    </div>
-    <div class="field full">
-      <label for="hours">How many hours can you be active on Minecraft and Discord? *</label>
-      <textarea id="hours" required></textarea>
+  <form id="applicationForm" class="card">
+    <h2 class="section-title">01 / Applicant Information</h2>
+    <p class="section-desc">Enter accurate details so the team can review your application.</p>
+
+    <div class="grid">
+      <div class="field">
+        <label for="realName">Name / Preferred Name *</label>
+        <input id="realName" name="realName" maxlength="60" required placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="age">Age *</label>
+        <input id="age" name="age" type="number" min="13" max="100" required placeholder="Your age">
+      </div>
+      <div class="field">
+        <label for="minecraft">Minecraft Username *</label>
+        <input id="minecraft" name="minecraft" maxlength="40" required placeholder="Your IGN">
+      </div>
+      <div class="field">
+        <label for="discord">Discord Username *</label>
+        <input id="discord" name="discord" maxlength="80" required placeholder="Your Discord username">
+      </div>
+      <div class="field full">
+        <label for="rank">Choose Your Position *</label>
+        <select id="rank" name="rank" required>
+          <option value="">-- Select a rank --</option>
+          <option value="SrAdmin">SrAdmin — Extreme Difficulty</option>
+          <option value="Admin">Admin — Very Hard</option>
+          <option value="Moderator">Moderator — Hard</option>
+          <option value="JrModerator">JrModerator — Medium</option>
+          <option value="Helper">Helper — Easy</option>
+          <option value="JrHelper">JrHelper — Very Easy</option>
+          <option value="YouTuber">YouTuber — Creator Application</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="timezone">Timezone / Country *</label>
+        <input id="timezone" name="timezone" maxlength="80" required placeholder="e.g. IST (UTC+5:30)">
+      </div>
+      <div class="field">
+        <label for="availability">Hours Available Per Week *</label>
+        <input id="availability" name="availability" type="number" min="1" max="168" required placeholder="e.g. 15">
+      </div>
+      <div class="field full">
+        <label for="experience">Previous Staff Experience</label>
+        <textarea id="experience" name="experience" maxlength="1500" placeholder="Describe your experience, or write 'None'."></textarea>
+      </div>
     </div>
 
-    <div class="full">
-      <h2>Random Questions</h2>
-      <p class="hint" id="questionInfo"></p>
+    <div id="rankInfo" class="rank-info" hidden>
+      <strong id="rankHeading"></strong>
+      <p id="rankDescription"></p>
     </div>
-    <div id="questions" class="full" style="display:grid;gap:16px"></div>
 
-    <div class="full">
-      <button type="submit">REVIEW APPLICATION ↗</button>
+    <div class="divider"></div>
+
+    <div class="question-top">
+      <div>
+        <h2 class="section-title">02 / Rank Assessment</h2>
+        <p class="section-desc" style="margin:7px 0 0">Your questions change when you select a different rank.</p>
+      </div>
+      <span id="questionCounter" class="counter">0 / 10</span>
     </div>
-    <div id="result" class="full hint" aria-live="polite"></div>
+
+    <div id="questionArea">
+      <p class="hint">Choose a position above to generate 10 random questions for that role.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field">
+      <label for="motivation">Why should StackNetwork select you? *</label>
+      <textarea id="motivation" name="motivation" maxlength="2000" required placeholder="Explain what you can contribute to the team..."></textarea>
+    </div>
+
+    <div style="margin-top:20px">
+      <label class="checkrow">
+        <input type="checkbox" id="agree" required>
+        <span>I confirm that my answers are honest and agree to follow StackNetwork's rules, staff policies and confidentiality requirements.</span>
+      </label>
+    </div>
+
+    <div class="actions">
+      <button class="btn secondary" type="button" id="reroll">New Random Questions</button>
+      <button class="btn primary" type="submit">Download Application JSON ↓</button>
+    </div>
+
+    <div id="notice" class="notice" role="status" aria-live="polite"></div>
   </form>
-</section>
-</main>
 
-<footer class="wrap">
-  StackNetwork Staff Recruitment ·
-  <a href="https://discord.gg/7pnknggESA">Discord Server</a>
-</footer>
+  <footer>
+    <div>© StackNetwork · Minecraft Community</div>
+    <div>Staff applications are reviewed by the server team.</div>
+    <div>HTML-only version: submissions are downloaded locally and are not automatically sent to Discord.</div>
+  </footer>
+</div>
 
 <script>
-const questionPool = [
-"How would you handle a ticket from an angry player?",
-"How would you investigate a player accused of scamming?",
-"If you cannot solve a case, what would you do next?",
-"What would you do if your friend broke a server rule?",
-"How would you respond to a player insulting you?",
-"What evidence should be collected before punishing a player?",
-"What would you do if another staff member abused permissions?",
-"How would you handle a ban appeal with unclear evidence?",
-"What would you do if two players gave conflicting stories?",
-"How would you protect private staff information?",
-"Why do you want to join the StackNetwork staff team?",
-"What skills make you suitable for your chosen rank?",
-"How would you help a new player understand server rules?",
-"How would you handle spam flooding the chat?",
-"What would you do if you punished the wrong player?",
-"How would you balance school and staff duties?",
-"What if a senior staff member asked you to break a rule?",
-"How would you handle a player abusing an exploit?",
-"How would you keep a Discord ticket professional?",
-"What if a player offered you money for special treatment?",
-"How would you decide between a warning, mute, kick, or ban?",
-"How would you calm an argument without taking sides?",
-"What does being fair and unbiased mean to you?",
-"How would you report a serious incident to the team?",
-"What if you needed to be inactive for several days?",
-"How would you handle a report against a popular donor?",
-"How would you explain a punishment to someone who disagrees?",
-"What would you do if a player shared another player's private information?",
-"How would you respond if you saw suspicious activity on the server?",
-"What is one skill you want to improve, and how will you improve it?"
-];
+"use strict";
 
-function shuffle(items) {
-  const arr = [...items];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+const questionBanks = {
+  SrAdmin: [
+    "A senior administrator is accused of secretly duplicating rare items for a friend. The audit logs are incomplete, the accused controls several plugins, and the accuser has a history of disputes. Design a fair investigation that preserves evidence, limits further abuse, protects privacy, and avoids assuming guilt.",
+    "A compromised administrator account bans 80 players, changes permissions and deletes several logs. Describe your first response, containment strategy, evidence preservation, account recovery, rollback decision and post-incident review.",
+    "Two senior staff members are involved in a conflict of interest. One is your close friend and the other provides evidence that may have been obtained improperly. How do you assess the evidence, handle impartiality and decide whether independent review is required?",
+    "A serious duplication exploit can crash the server and corrupt the economy. Reproducing it on production could make the damage worse. Explain how you would coordinate containment, safe testing, backups, patch validation, recovery and communication.",
+    "A trusted developer requests broad console and database access to fix an urgent issue, but their request exceeds their normal responsibilities. How do you evaluate the request and provide enough access to solve the problem without unnecessary risk?",
+    "An influential content creator is caught abusing a staff-only command. They threaten to publish damaging claims if punished. Explain how you would preserve evidence, enforce policy consistently, handle public communication and avoid retaliatory decisions.",
+    "After a permissions migration, helpers can access destructive commands through inherited groups. Explain how you would trace inheritance, test the fix, audit affected accounts and prevent a similar regression.",
+    "A backup appears successful but restoration testing reveals missing player data. A new update is scheduled in an hour. What do you do about the release, data recovery, player communication and verification of future backups?",
+    "A moderator reports suspected staff collusion, but the only evidence is a private conversation and an unusual sequence of punishments. Design a proportionate investigation while protecting whistleblowers and avoiding unjustified surveillance.",
+    "You discover that a punishment plugin has silently failed for several days, allowing repeat offenders to evade mutes. Explain how you would verify the scope, repair the system, review past cases and communicate the impact.",
+    "A staff member claims a player used an exploit, while server logs indicate the player's account may have been compromised. Explain how you separate account ownership, player intent, technical evidence and immediate safety measures before deciding a sanction.",
+    "A major update introduces a conflict between the anti-cheat, economy plugin and permissions system. Explain how you would prioritize risk, build a test plan, define rollback criteria, assign responsibilities and decide when the server is safe to reopen."
+  ],
+
+  Admin: [
+    "A staff member gives valuable items to an alternate account, then claims the transaction was a legitimate event reward. The event records are missing. How would you reconstruct the facts, preserve evidence and decide on a fair outcome?",
+    "A suspected exploit can create unlimited currency, but testing it may inflate the live economy. Describe a safe reproduction plan, containment steps, backup strategy, fix verification and a process for reviewing affected balances.",
+    "A player submits convincing evidence that a moderator fabricated a ban reason. The moderator denies it and asks you to delete the report. What do you do, and how do you maintain a defensible record of your decision?",
+    "A permissions change allows a junior rank to use /op or another dangerous command. Explain how you would identify the source, restrict access, inspect relevant logs and verify that no hidden inheritance path remains.",
+    "A popular YouTuber repeatedly breaks the rules and demands immunity in exchange for promoting the server. How would you enforce the rules without damaging the team's credibility or giving the creator special treatment?",
+    "Two players submit edited clips that contradict each other in a serious harassment report. Explain what additional evidence you would seek, how you would assess uncertainty and what temporary action, if any, is justified.",
+    "A plugin update breaks player inventories for a subset of users. Describe how you would determine the affected scope, preserve current data, restore safely and verify that recovery did not overwrite legitimate progress.",
+    "A moderator issues a permanent ban based on an anti-cheat alert that might have been caused by lag. How would you review the evidence, handle the appeal and improve the decision process?",
+    "A staff member's account logs in from an unexpected location and begins changing punishments. Explain how you would contain the risk, verify the incident, preserve logs and restore trustworthy access.",
+    "An economy exploit has already affected hundreds of transactions. Explain how you would estimate the impact, avoid punishing innocent recipients automatically, coordinate a correction and explain the outcome to players.",
+    "A senior staff member asks you to bypass the standard review process for their friend. What steps would you take, and how would you document and escalate any pressure to act unfairly?",
+    "Players report that a punishment plugin applies the wrong duration after a configuration change. How would you reproduce the problem, stop further incorrect punishments, fix the configuration and audit affected cases?"
+  ],
+
+  Moderator: [
+    "Two players accuse each other of using hacks, and each provides a short clip that shows only part of the fight. How would you investigate without relying on either player's claims alone?",
+    "A player repeatedly targets another player with insults that technically avoid the server's blocked words. What would you do to address the behaviour and document repeated incidents?",
+    "A player claims their permanent ban was caused by a false anti-cheat alert. What evidence would you collect, and when would you refer the appeal to an administrator?",
+    "A friend asks you to remove their warning because they believe it is unfair. How would you respond and ensure the same rules apply to everyone?",
+    "You witness a moderator arguing with a player and threatening a punishment outside the published rules. How would you handle the situation without escalating it publicly?",
+    "A player appears to evade a mute using another account. What evidence would you seek, and what would you avoid assuming before taking action?",
+    "A report contains screenshots of harassment but also exposes personal information. How would you preserve relevant evidence while limiting further exposure?",
+    "Several players report a suspected x-ray user, but the mining pattern alone is inconclusive. What additional observations or evidence would you look for?",
+    "You accidentally mute the wrong player during a busy incident. Explain how you would correct the mistake, notify the appropriate staff and prevent repetition.",
+    "A heated PvP dispute attracts a crowd in chat. Describe how you would calm the situation, collect the facts and apply the rules consistently.",
+    "A player submits a report against a staff member who is currently handling another case involving that player. How would you avoid a conflict of interest?",
+    "You notice that another moderator repeatedly skips required evidence when issuing bans. How would you address the problem and escalate it if it continues?"
+  ],
+
+  JrModerator: [
+    "A player continues spamming after a warning. What steps should you take next according to the server's punishment rules?",
+    "Someone reports a suspected hacker, but you did not witness the incident. How should you handle the report?",
+    "A player becomes angry about a mute and starts arguing in public chat. What would you say and do?",
+    "You discover that you punished the wrong player. How should you correct the mistake?",
+    "Two players report each other for harassment. What information should you collect before deciding what to do?",
+    "A friend asks you to share private staff chat messages. How should you respond?",
+    "You see a player advertising another server after being asked to stop. What steps should you take?",
+    "A player sends you a screenshot of an alleged rule violation, but the screenshot is incomplete. What should you do before acting?",
+    "You are unsure which punishment applies to a repeated offence. How would you find the correct answer?",
+    "A player claims that a staff member is abusing commands, but provides no evidence. How should you handle the complaint?",
+    "You notice that another junior moderator is arguing with players instead of moderating calmly. What would you do?",
+    "A player asks you to keep a serious rule violation secret because they are your friend. How should you respond?"
+  ],
+
+  Helper: [
+    "A new player joins and does not know how to get started. How would you help them?",
+    "A player says someone is hacking. What should you do?",
+    "Two players start arguing in chat. How can you help calm things down?",
+    "A player asks you for free items because you are staff. What would you say?",
+    "What should you do if you do not know the answer to a player's question?",
+    "A new player cannot find the server rules. How would you guide them?",
+    "Someone repeatedly spams chat. How should you report the problem?",
+    "A player is upset because they lost an item. How would you respond politely?",
+    "Why should staff members treat new players and experienced players fairly?",
+    "A player asks you to share another player's password or private details. What should you do?",
+    "A player asks you to teleport them, but your role does not have that permission. How would you handle the request?",
+    "Why is it important not to argue with players while wearing a staff role?"
+  ],
+
+  JrHelper: [
+    "A new player joins the server and says hello. What would you say?",
+    "Someone asks where to find the server rules. What do you do?",
+    "A player is upset because they lost an item. How would you respond kindly?",
+    "You see spam in chat. Who should you tell?",
+    "Why should you be polite to every player?",
+    "A new player asks how to join a game or start playing. How can you help?",
+    "A player asks you a question and you do not know the answer. What should you do?",
+    "Why should you never give your account password to another person?",
+    "A player asks you to break a rule for them because you are friends. What would you say?",
+    "What does being helpful mean on a Minecraft server?",
+    "A player is being rude to you. How can you respond without being rude back?",
+    "Why should you ask a senior staff member for help when a situation is serious?"
+  ],
+
+  YouTuber: [
+    "Design a video concept that introduces StackNetwork to new viewers without making promises about rewards, uptime or features that are not confirmed.",
+    "A viewer sends you a serious bug that could be exploited for profit. How would you report it privately while protecting your audience from copying it?",
+    "Your video receives criticism alleging unfair staff treatment. How would you verify the claim, respond professionally and avoid misleading your audience?",
+    "Create a realistic plan for a 60-second StackNetwork promotional video, including its hook, main gameplay scenes and call to action.",
+    "A sponsor or staff member asks you to make a claim about the server that you know is false. What would you do?",
+    "A viewer asks you to reveal private staff conversations to make your video more exciting. How would you respond?",
+    "Your recording shows another player's private information in chat. What should you do before uploading the video?",
+    "How would you make original content about a Minecraft event while ensuring that event rules are followed?",
+    "Your first StackNetwork video receives very few views. How would you improve the next video without using misleading titles or thumbnails?",
+    "How would you measure whether your server videos are attracting genuine players rather than only generating views?",
+    "You witness a serious rule violation while recording. How would you report it and decide what, if anything, to show in your video?",
+    "Describe your upload schedule, content style, current channel activity and realistic plan for promoting StackNetwork."
+  ]
+};
+
+const rankDetails = {
+  SrAdmin: {
+    title:"SrAdmin — Extreme Assessment",
+    description:"Complex investigations, incident response, permissions, staff accountability, recovery planning and difficult leadership decisions."
+  },
+  Admin: {
+    title:"Admin — Very Hard Assessment",
+    description:"Advanced moderation, technical troubleshooting, evidence evaluation, security incidents and fair enforcement."
+  },
+  Moderator: {
+    title:"Moderator — Hard Assessment",
+    description:"Investigations, appeals, harassment, evidence handling and consistent rule enforcement."
+  },
+  JrModerator: {
+    title:"JrModerator — Medium Assessment",
+    description:"Everyday moderation decisions, reporting, mistakes, communication and following staff procedures."
+  },
+  Helper: {
+    title:"Helper — Easy Assessment",
+    description:"Helping players, understanding rules, being polite and knowing when to ask for assistance."
+  },
+  JrHelper: {
+    title:"JrHelper — Very Easy Assessment",
+    description:"Beginner-friendly questions about kindness, safety, basic server help and responsible behaviour."
+  },
+  YouTuber: {
+    title:"YouTuber — Creator Assessment",
+    description:"Original content, responsible promotion, audience growth, privacy and accurate representation of the server."
   }
-  return arr;
+};
+
+const form = document.getElementById("applicationForm");
+const rankSelect = document.getElementById("rank");
+const questionArea = document.getElementById("questionArea");
+const questionCounter = document.getElementById("questionCounter");
+const rankInfo = document.getElementById("rankInfo");
+const rankHeading = document.getElementById("rankHeading");
+const rankDescription = document.getElementById("rankDescription");
+const notice = document.getElementById("notice");
+
+let activeQuestions = [];
+let questionRank = "";
+
+function shuffle(array) {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
 }
 
-const questionsEl = document.getElementById("questions");
-const form = document.getElementById("applicationForm");
-const result = document.getElementById("result");
-let selected = [];
+function showNotice(message, type) {
+  notice.textContent = message;
+  notice.className = "notice " + type;
+}
 
-function loadQuestions() {
-  selected = shuffle(questionPool).slice(0, 10);
-  questionsEl.replaceChildren();
+function generateQuestions(keepAnswers = false) {
+  const selectedRank = rankSelect.value;
 
-  selected.forEach((q, i) => {
-    const field = document.createElement("div");
-    field.className = "field";
+  if (!selectedRank || !questionBanks[selectedRank]) {
+    activeQuestions = [];
+    questionRank = "";
+    questionArea.innerHTML =
+      '<p class="hint">Choose a position above to generate 10 random questions for that role.</p>';
+    questionCounter.textContent = "0 / 10";
+    rankInfo.hidden = true;
+    return;
+  }
+
+  let previousAnswers = {};
+  if (keepAnswers) {
+    document.querySelectorAll("[data-question-id]").forEach(el => {
+      previousAnswers[el.dataset.questionId] = el.value;
+    });
+  }
+
+  questionRank = selectedRank;
+  activeQuestions = shuffle(questionBanks[selectedRank]).slice(0, 10);
+
+  const details = rankDetails[selectedRank];
+  rankHeading.textContent = details.title;
+  rankDescription.textContent = details.description;
+  rankInfo.hidden = false;
+
+  questionArea.replaceChildren();
+
+  activeQuestions.forEach((question, index) => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "question";
 
     const label = document.createElement("label");
-    label.htmlFor = "answer" + i;
-    label.textContent = `${i + 1}. ${q} *`;
+    label.htmlFor = "answer" + index;
 
-    const area = document.createElement("textarea");
-    area.id = "answer" + i;
-    area.required = true;
-    area.minLength = 8;
-    area.maxLength = 1500;
-    area.placeholder = "Write your answer here...";
+    const number = document.createElement("span");
+    number.className = "qnum";
+    number.textContent = "QUESTION " + String(index + 1).padStart(2, "0");
 
-    field.append(label, area);
-    questionsEl.append(field);
+    label.appendChild(number);
+    label.appendChild(document.createTextNode(question));
+
+    const textarea = document.createElement("textarea");
+    textarea.id = "answer" + index;
+    textarea.name = "answer" + index;
+    textarea.dataset.questionId = question;
+    textarea.maxLength = 4000;
+    textarea.required = true;
+    textarea.placeholder = "Write your answer here...";
+
+    if (keepAnswers && previousAnswers[question]) {
+      textarea.value = previousAnswers[question];
+    }
+
+    wrapper.append(label, textarea);
+    questionArea.appendChild(wrapper);
   });
 
-  document.getElementById("questionInfo").textContent =
-    "10 unique questions randomly selected from 30.";
+  questionCounter.textContent = "10 / 10";
+  showNotice("Generated 10 random questions for " + selectedRank + ".", "success");
 }
 
-loadQuestions();
+rankSelect.addEventListener("change", () => generateQuestions(false));
+
+document.getElementById("reroll").addEventListener("click", () => {
+  if (!rankSelect.value) {
+    showNotice("Please select a rank first.", "error");
+    rankSelect.focus();
+    return;
+  }
+
+  if (questionArea.querySelectorAll("textarea").length &&
+      !confirm("Generate new questions? Your current answers to the questions will be lost.")) {
+    return;
+  }
+
+  generateQuestions(false);
+});
 
 form.addEventListener("submit", event => {
   event.preventDefault();
+
   if (!form.reportValidity()) return;
 
+  if (!questionRank || questionRank !== rankSelect.value || activeQuestions.length !== 10) {
+    showNotice("Please select a rank and generate its questions first.", "error");
+    return;
+  }
+
+  const answers = [];
+  for (let i = 0; i < activeQuestions.length; i++) {
+    const field = document.getElementById("answer" + i);
+    if (!field || !field.value.trim()) {
+      showNotice("Please answer all 10 questions before submitting.", "error");
+      if (field) field.focus();
+      return;
+    }
+
+    answers.push({
+      question: activeQuestions[i],
+      answer: field.value.trim()
+    });
+  }
+
   const application = {
-    name: document.getElementById("name").value.trim(),
-    age: document.getElementById("age").value,
-    minecraft: document.getElementById("minecraft").value.trim(),
-    discord: document.getElementById("discord").value.trim(),
-    position: document.getElementById("position").value,
-    timezone: document.getElementById("timezone").value.trim(),
-    hours: document.getElementById("hours").value.trim(),
-    answers: selected.map((question, i) => ({
-      question,
-      answer: document.getElementById("answer" + i).value.trim()
-    }))
+    website: "StackNetwork Staff Applications",
+    applicationId: "SN-" + Date.now().toString(36).toUpperCase(),
+    submittedAt: new Date().toISOString(),
+    applicant: {
+      name: document.getElementById("realName").value.trim(),
+      age: Number(document.getElementById("age").value),
+      minecraftUsername: document.getElementById("minecraft").value.trim(),
+      discordUsername: document.getElementById("discord").value.trim(),
+      position: rankSelect.value,
+      timezone: document.getElementById("timezone").value.trim(),
+      hoursAvailablePerWeek: Number(document.getElementById("availability").value),
+      previousStaffExperience: document.getElementById("experience").value.trim()
+    },
+    assessment: answers,
+    motivation: document.getElementById("motivation").value.trim(),
+    consentConfirmed: document.getElementById("agree").checked
   };
 
-  // Website-only preview. This does not send anything to Discord.
-  const preview = JSON.stringify(application, null, 2);
-  const blob = new Blob([preview], {type:"application/json"});
+  const json = JSON.stringify(application, null, 2);
+  const blob = new Blob([json], { type: "application/json;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "stacknetwork-application.json";
+  link.download = "StackNetwork-" + rankSelect.value + "-Application.json";
+  document.body.appendChild(link);
   link.click();
+  link.remove();
   URL.revokeObjectURL(url);
 
-  result.textContent =
-    "Application review file downloaded. This website-only version does not submit to Discord automatically. Connect a backend to deliver applications to your channel.";
+  showNotice(
+    "Application JSON download requested! Your answers are saved in that downloaded file. Send the file to the StackNetwork staff team for review. This website does not upload or send applications automatically.",
+    "success"
+  );
 });
+
+generateQuestions(false);
 </script>
 </body>
 </html>
